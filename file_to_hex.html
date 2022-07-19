@@ -23,20 +23,9 @@
 
 <div id="wrap">
 <div id="header">
-<div id="header_l">
-  <a href="../index.php?lang=en">tomeko.net</a>
 </div>
-<div id="header_r"><A HREF="http://tomeko.net/online_tools/file_to_hex.php?lang=en" TARGET="_self"><strong>ENGLISH VERSION</strong></A><br><A HREF="http://tomeko.net/online_tools/file_to_hex.php?lang=pl" TARGET="_self"><strong>WERSJA POLSKA</strong></A></div>      
-</div>
-
-<a href="../bot-trap/">
-  <img src="../images/pixel.gif" border="0" alt=" " width="1" height="1">
-</a>
-     
-
 
 <div id="main">
-
 	<h1>File to hexadecimal converter</h1>
       <p>Client-side (javascript, no data is sent to server) file to hexadecimal code conversion.
 		Be careful with files &gt; 1 MB (possible high resource consumption, e.g. Chromium 46 has serious problems when loading few MB of text into textarea, offline tools might be better for large files).	  
@@ -65,14 +54,6 @@
                 <button type="button" name="btnCopyOutputToClipboard" onclick="copyOutputToClipboard()">Copy output to clipboard</button>
 				</p>			    
 			</form>
-      <p>
-      See also:
-      <br>
-      <a href="http://tomeko.net/bin/bin2hex/bin2hex.exe">bin2hex.exe for Windows</a>
-      or <a href="http://tomeko.net/bin/bin2hex/bin2hex">bin2hex for Linux</a>
-      (<a href="http://tomeko.net/bin/bin2hex/bin2hex.c">source, bin2hex.c</a>).
-      <br>
-      bin2hex with added options to write hex only and to specify wrapping length: <a href="http://tomeko.net/bin/bin2hex/20190615/bin2hex.exe">bin2hex.exe</a> (<a href="http://tomeko.net/bin/bin2hex/20190615/bin2hex.c">bin2hex.c</a>)
       </p>   
   </div>
 <script type="text/javascript">
@@ -105,6 +86,9 @@
 			    hexText += separator2;
 			  }
 				if (newline) {
+					if ((i%16) == 15) {
+						hexText += "\n";
+					}
 				}
 			}
 			document.frmConvert.ed_output.value = hexText;		  	
@@ -200,60 +184,7 @@
 <div id="sidebar">
 <h3>Sitemap</h3>
 
-<ul id="tree0" class="tree">
-
-    <li ><a>PROJECTS</a>
-    <ul>
-    <li><A HREF="../programator.php?lang=en" TARGET="_self">FLASH 49F programmer</A></li>
-    <li><A HREF="../termometr.php?lang=en" TARGET="_self">Web thermometer</A></li>
-    <li><A HREF="../mikroserwer.php?lang=en" TARGET="_self">ISA microserver</A></li>
-    <li><a href="../mikroserwerPIC.php?lang=en" TARGET="_self">PIC18F67J60 microserver</A></li>
-    <li><A HREF="../PCpilot.php?lang=en" TARGET="_self">Cesko's PC remote</A></li>
-    <li><A HREF="../miniscope.php?lang=en" TARGET="_self">Single chip mini-DSO</A></li>
-    <li><A HREF="../fastPICCDC.php?lang=en" TARGET="_self">PIC USB CDC</A></li>
-    <li><A HREF="../pickit2.php?lang=en" TARGET="_self">PICKIT 2</A></li>
-    <li><A HREF="../ARMboard.php?lang=en" TARGET="_self">AT91SAM7S low cost board</A></li>
-    <li><a href="../dsoundscope/index.php?lang=en" TARGET="_self">DirectSound oscilloscope</a></li>
-    <li><a href="../projects/dso138/index.php?lang=en" TARGET="_self">DSO138</a></li>            
-    <li><A HREF="../miniscope_v2.php?lang=en" TARGET="_self">Oscilloscope v2</A></li>
-    <li><A HREF="../miniscope_v2a.php?lang=en" TARGET="_self">Oscilloscope v2a</A></li>
-    <li><A HREF="../miniscope_v2b/index.php?lang=en" TARGET="_self">Oscilloscope v2b</A></li>
-    <li><A HREF="../miniscope_v2c/index.php?lang=en" TARGET="_self">Oscilloscope v2c</A></li>
-    <li><A HREF="../miniscope_v2d/index.php?lang=en" TARGET="_self">Oscilloscope v2d</A></li>
-    <li><A HREF="../miniscope_v2e/index.php?lang=en" TARGET="_self">Oscilloscope v2e</A></li>
-    <li><A HREF="../miniscope_v2f/index.php?lang=en" TARGET="_self">Oscilloscope v2f</A></li>
-    <li><A HREF="../miniscope_v2g/index.php?lang=en" TARGET="_self">Oscilloscope v2g</A></li>
-    <li><a href="../miniscope_v3/index.php?lang=en" TARGET="_self">Oscilloscope v3</a></li>    
-    <li><a href="../miniscope_v4/index.php?lang=en" TARGET="_self">Oscilloscope v4</a></li>    
-    <li><A HREF="../misc.php?lang=en" TARGET="_self">Miscellaneous</A></li>
-    <li><A HREF="../projects/TEA5767_radio/index.php?lang=en" TARGET="_self">TEA5767 radio</A></li>
-    <li><A HREF="../projects/RDA5807M_radio/index.php?lang=en" TARGET="_self">RDA5807M radio</A></li>
-    <li><A HREF="../projects/USB_1_wire_adapter/index.php?lang=en" TARGET="_self">USB/1-wire adapter</A></li>        
-    <li><A HREF="../projects/metal_detector/index.php?lang=en" TARGET="_self">Metal detector</A></li>
-    <li><A HREF="../projects/rtp_pager/index.php?lang=en" TARGET="_self">RTP pager</A></li>
-    <li><A HREF="../projects/rtp_pager_eth/index.php?lang=en" TARGET="_self">RTP pager: eth</A></li>                    
-    <li><A HREF="../projects/esp32_rtp_pager/index.php?lang=en" TARGET="_self">ESP32: RTP pager, Scream</A></li>
-    <li><A HREF="../projects/scream_eth/index.php?lang=en" TARGET="_self">STM32: Scream</A></li>
-    <li><A HREF="../projects/logic_probe/index.php?lang=pl" TARGET="_self">Logic probe</A></li>                                                           
-    <li><A HREF="../uCboards.php" TARGET="_self">uC starterkits</A></li>
-    <li><A HREF="../semi_commercial/index.php?lang=en" TARGET="_self">Semi-commercial</A></li>    
-    </ul>
-    </li>
-    
-    <li><a>SOFTWARE</a>
-    <ul>
-    <li><A HREF="../freegg.php?lang=en" TARGET="_self">Free GG</A></li>
-    <li><A HREF="../oterm.php?lang=en" TARGET="_self">OTerm</A></li>
-    <li><A HREF="../software/JSONedit/index.php?lang=en" TARGET="_self">JSONedit</A></li>    
-    <li><A HREF="../software/VideoPlayer/index.php?lang=en" TARGET="_self">Video player</A></li>
-    <li><A HREF="../software/SIPclient/index.php?lang=en" TARGET="_self">SIP client</A></li>    
-    <li><A HREF="../software/RawDiskViewer/index.php?lang=en" TARGET="_self">RAW disk viewer</A></li>
-    <li><A HREF="../software/CbxConverter/index.php?lang=en" TARGET="_self">CbxConverter</A></li>           
-    <li><A HREF="../software/DumpViewer/index.php?lang=en" TARGET="_self">DumpViewer</A></li>
-    <li><A HREF="../software/CppCommentRemover/index.php?lang=en" TARGET="_self">CppCommentRemover</A></li>            
-    <li><A HREF="../soft.php?lang=en" TARGET="_self">Other</A></li>
-    </ul>
-    </li>    
+<ul id="tree0" class="tree">   
  
     <li><a>ONLINE TOOLS</a>
     <ul>
@@ -293,26 +224,6 @@
     <li><a href="../online_tools/diskstats.php?lang=en" TARGET="_self">/proc/diskstats</a></li>    
     </ul>
     </li> 
-    
-
-    <li><a>OTHER</a>
-      <ul>
-        <li><a href="../snippets.php?lang=en">Code Snippets</a></li>
-        <li><a href="../other/sipp/sipp_cheatsheet.php?lang=pl">SIPp</a></li>
-        <li><a href="../other/SIPp-MinGW/index.php?lang=en">SIPp/MinGW</a></li>
-        <li><a href="../other/pjsua/reg_fuzzer.php?lang=en">SIP reg fuzzer</a></li>  
-        <li><a href="../other/linux/command_line_cheatsheet.php">Linux command line</a></li>
-        <li><a href="../other/lpt_winxp/lpt_winxp.php?lang=en">LPT WinXP</a></li>
-        <li><a href="../other/avrdude/building_avrdude.php?lang=en">Avrdude/MinGW</a></li>
-        <li><a href="../reviews/dell_d600.php?lang=en">Dell D600 review</a></li>
-        <li><a href="../reviews/BT_module/index.php?lang=en">JY-MCU/HC-06 BT</a></li>
-        <li><a href="../other/ESP8266/index.php?lang=en">ESP8266</a></li>
-        <li><a href="../reviews/avr_nano/index.php?lang=pl">AVR nano / scope</a></li>        
-      </ul>
-    </li>
-    <li><A HREF="../linki.php?lang=en" TARGET="_self">Links</A></li>
-    <li><A HREF="../hist_strony.php?lang=en" TARGET="_self">What's new?</A></li>
-    <li><A HREF="../contact2.php?lang=en" TARGET="_self">Contact</A></li></ul>
 <script type="text/javascript">
 <!--
 new tree("tree0");
@@ -321,52 +232,9 @@ new tree("tree0");
 
 <br>  
 <br>  
-<br>  
-
-
-
-
-
-  <br>    
-  <script type="text/javascript"><!--
-  google_ad_client = "pub-0627417362141126";
-  /* 120x240, utworzono 09-08-29 */
-  google_ad_slot = "6981730914";
-  google_ad_width = 120;
-  google_ad_height = 240;
-  //-->
-  </script>
-  <script type="text/javascript"
-  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-  </script>
-        
-    
+<br>   
 </div>
-
-
-<div id="footer">
-
-
-<script type="text/javascript"><!--
-google_ad_client = "pub-0627417362141126";
-/* 728x90, utworzono 10-03-06 */
-google_ad_slot = "5895024682";
-google_ad_width = 728;
-google_ad_height = 90;
-//-->
-</script>
-<script type="text/javascript"
-src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-</script>
-  
-</div>
-
-
 <br>
-<div id="footer2"><p>      
-      <font size="-2">&nbsp;"Cookie monsters": 6480680&nbsp;&nbsp;&nbsp;&nbsp;Parse time:&nbsp;0.217 s</font>
-  </p>
-	</div>
 </div>
 </body>
 </html>
