@@ -1,0 +1,229 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META content="text/html; charset=ISO-8859-2" http-equiv="content-type">
+<meta name="robots" content="index,follow">
+<META NAME="Keywords" CONTENT="Base64, base 64, on-line decoder, base 64 decoder, javascript">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<META NAME="Author" CONTENT="Tomasz Ostrowski">
+<META name="description" content="On-line javascript base 64 to hexadecimal string decoder.">  
+<link rel="stylesheet" type="text/css" media="only screen and (max-width: 959px)" href="../css/mobile.css" />
+<link rel="stylesheet" type="text/css" media="only screen and (min-width: 960px)" href="../css/main.css" />
+<script type="text/javascript" src="../tree.js"></script>
+
+
+<script src="../cookie_consent/js/jquery-2.1.3.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../cookie_consent/css/jquery-eu-cookie-law-popup.css"/>
+<script src="../cookie_consent/js/jquery-eu-cookie-law-popup-en.js"></script>
+
+<title>Tomasz Ostrowski - Base64 decoder</title>  
+</head>
+<body class="eupopup eupopup-bottomleft eupopup-style-compact">
+</div>
+     
+
+<script type="text/javascript" src="../online_tools/createFile.js"></script>
+
+<script type="text/javascript">
+<!--
+    var hD='0123456789ABCDEF';
+    function dec2hex(d) {
+        var h = hD.substr(d&15,1);
+        while (d>15) {
+            d>>=4;
+            h=hD.substr(d&15,1)+h;
+        }
+        if (document.frmConvert.chbLowercaseOutput.checked) {
+            h = h.toLowerCase();
+        }
+        return h;
+    }
+
+    var keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="
+    function base64_decode(input) {
+        var output = new Array();
+        var chr1, chr2, chr3;
+        var enc1, enc2, enc3, enc4;
+        var i = 0;
+
+        var orig_input = input;
+        input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+        if (orig_input != input)
+            alert ("Warning! Characters outside Base64 range in input string ignored.");
+        if (input.length % 4) {
+            alert ("Error: Input length is not a multiple of 4 bytes.");
+            return "";
+        }
+        
+        var j=0;
+        while (i < input.length) {
+
+            enc1 = keyStr.indexOf(input.charAt(i++));
+            enc2 = keyStr.indexOf(input.charAt(i++));
+            enc3 = keyStr.indexOf(input.charAt(i++));
+            enc4 = keyStr.indexOf(input.charAt(i++));
+
+            chr1 = (enc1 << 2) | (enc2 >> 4);
+            chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+            chr3 = ((enc3 & 3) << 6) | enc4;
+            
+            output[j++] = chr1;
+            if (enc3 != 64)
+              output[j++] = chr2;
+            if (enc4 != 64)
+              output[j++] = chr3;
+              
+        }
+        return output;
+    }
+    
+   
+    function ShowDecodedAsText(val)
+    {
+        var target = document.getElementById('divDecodedText'); 
+        target.innerHTML = val;    
+    }     
+    
+    function Convert() {
+        var output = base64_decode(document.frmConvert.encoded.value);
+        var separator = "";
+        if (document.frmConvert.chbSeparator.checked)
+            separator = " 0x";
+        var hexText = "";
+        var htmlStr = "<p style=\"font-family: courier new, monospace\"><b>";
+        for (i=0; i<output.length; i++) {
+          hexText = hexText + separator + (output[i]<16?"0":"") + dec2hex(output[i]);
+          if (output[i] >= 32 && output[i] <= 126)
+          {
+            switch(String.fromCharCode(output[i])) {
+            case '&': htmlStr += "&amp;";
+              break;
+            case '<': htmlStr += "&lt;";
+              break;
+            case '>': htmlStr += "&gt;";
+              break;
+            case '"': htmlStr += "&quot;";
+              break;
+            case '\'': htmlStr += "&#039;";
+              break;
+            default: htmlStr += String.fromCharCode(output[i]);
+            }          
+          }
+          else {
+            htmlStr += "<i>[" + output[i] + "]<" + "/i>";
+          }
+        }
+        htmlStr += "<" + "/b><" + "/p>";  // stupid W3C validator...
+        document.frmConvert.hex.value = hexText;
+                
+        ShowDecodedAsText(htmlStr);   
+    }
+    
+    function ConvertToFile() {
+      Convert();
+      createFileFromHex(document.frmConvert.hex.value, document.frmConvert.filename.value);
+    } 
+
+//-->
+</script>
+
+
+<div id="main">
+<h1>Base64 -> hexadecimal string decoder</h1>
+      <form name="frmConvert" action="">
+				<p>Base64 string:</p>
+			    <p><input type="text" name="encoded" value="" style="width: 550px;"></p>
+        <p>Options:</p>
+          <p><input type="checkbox" name="chbSeparator" value="sep">0x separator for output
+          <br>
+          <input type="checkbox" name="chbLowercaseOutput" value="lowercaseHex">Use lowercase hex characters</p>          
+				<p>Decoded data (hexadecimal)</p>
+			    <p><input type="text" name="hex" value="" style="width: 550px;"></p>
+        <p>Decoded data as ASCII text, bytes outside 32...126 range displayed in italics as <i>[byte value]</i>:<br>        
+        <div id="divDecodedText">
+        <p><i>...decoded text...</i></p>
+        </div>	 			    
+			  <p>
+			    <button type=button name="btnConvert"
+            onclick="Convert()">
+            Convert
+          </button>
+			  </p>
+        
+        <h2>Converting (client-side) to raw binary file</h2>
+				<p>Name of file to create:</p>
+			    <p>
+				<input type="text" name="filename" value="myfile.dat" style="width: 550px;">
+				</p>	  
+	  
+			  <p>
+			    <button type=button name="btnConvertToFile"
+            onclick="ConvertToFile()">
+            Convert to file
+          </button>
+			  </p>        
+        
+			</form>
+    <p>
+    Related: <a href="base64_multi.php">Line-based multiple base64 -> hex converter</a>.
+    </p>
+  </div>
+<div id="sidebar">
+<h3>Sitemap</h3>
+
+<ul id="tree0" class="tree">
+  
+    <li><a>ONLINE TOOLS</a>
+    <ul>
+    <li><a href="../online_tools/base64.php?lang=en" TARGET="_self">Base64 -&gt; HEX</A></li>
+    <li><a href="../online_tools/base32.php?lang=en" TARGET="_self">Base32 -&gt; HEX</a></li>
+    <li><a href="../online_tools/base32hex.php?lang=en" TARGET="_self">Base32hex -&gt; HEX</a></li>
+    <li><a href="../online_tools/ascii.php?lang=en" TARGET="_self">ASCII -&gt; HEX</a></li>
+    <li><a href="../online_tools/ascii_uN.php?lang=en" TARGET="_self">ASCII -&gt; u16/u32/u64 HEX</a></li>            
+    <li><a href="../online_tools/hex_to_base64.php?lang=en" TARGET="_self">HEX -&gt; Base64</a></li>
+    <li><a href="../online_tools/text_to_base64.php?lang=en" TARGET="_self">Text -&gt; Base64</a></li>
+    <li><a href="../online_tools/hex_to_base32.php?lang=en" TARGET="_self">HEX -&gt; Base32</a></li>
+    <li><a href="../online_tools/hex_to_base32hex.php?lang=en" TARGET="_self">HEX -&gt; Base32hex</a></li>
+    <li><a href="../online_tools/hex_to_ascii.php?lang=en" TARGET="_self">HEX -&gt; ASCII</a></li>
+    <li><a href="../online_tools/hex_to_dec.php?lang=en" TARGET="_self">HEX -&gt; DEC</a></li>	
+    <li><a href="../online_tools/dec_to_ascii.php?lang=en" TARGET="_self">DEC -&gt; ASCII</a></li>
+    <li><a href="../online_tools/bin_to_32bit_hex.php?lang=en" TARGET="_self">BIN &lt;-&gt; 32-bit hex</a></li>    
+    <li><a href="../online_tools/md5.php?lang=en" TARGET="_self">MD5 calculator</a></li>
+    <li><a href="../online_tools/sha1.php?lang=en" TARGET="_self">SHA1 calculator</a></li>    
+    <li><a href="../online_tools/regexp.php?lang=en" TARGET="_self">Regular exp.</a></li>
+    <li><a href="../online_tools/cpp_text_escape.php?lang=en" TARGET="_self">Text -&gt; Cpp</a></li>
+    <li><a href="../online_tools/cpp_unescape.php?lang=en" TARGET="_self">Cpp -&gt; text</a></li>
+    <li><a href="../online_tools/pascal_escape.php?lang=en" TARGET="_self">Text -&gt; Pascal</a></li>        
+    <li><a href="../online_tools/hex_to_file.php?lang=en" TARGET="_self">HEX -&gt; file</a></li>
+    <li><a href="../online_tools/file_to_hex.php?lang=en" TARGET="_self">File -&gt; HEX</a></li>
+    <li><a href="../online_tools/file_to_base64.php?lang=en" TARGET="_self">File -&gt; Base64</a></li>    
+    <li><a href="../online_tools/html_list_gen.php?lang=en" TARGET="_self">Text -&gt; HTML ul</a></li>
+    <li><a href="../online_tools/crc8.php?lang=en" TARGET="_self">CRC8</a></li>
+    <li><a href="../online_tools/wave_gen.php?lang=en" TARGET="_self">WAVE generator</a></li>
+    <li><a href="../online_tools/bin_decoder.php?lang=en" TARGET="_self">Bin decoder</a></li>
+    <li><a href="../online_tools/rc4.php?lang=en" TARGET="_self">RC4</a></li>          
+    <li><a href="../online_tools/xor.php?lang=en" TARGET="_self">XOR</a></li>
+    <li><a href="../online_tools/inv.php?lang=en" TARGET="_self">Inverting bits</a></li>
+    <li><a href="../online_tools/par_resistors.php?lang=en" TARGET="_self">Par. resistors search</a></li>
+    <li><a href="../online_tools/unique_str.php?lang=en" TARGET="_self">Deduplicate / sort</a></li>        
+    <li><a href="../online_tools/base64_to_PEM.php?lang=en" TARGET="_self">Base64 -&gt; PEM</a></li>
+    <li><a href="../online_tools/PEM_to_base64.php?lang=en" TARGET="_self">PEM -&gt; base64</a></li>
+    <li><a href="../online_tools/diskstats.php?lang=en" TARGET="_self">/proc/diskstats</a></li>    
+    </ul>
+    </li>
+<script type="text/javascript">
+<!--
+new tree("tree0");
+//-->
+</script>
+
+<br>  
+<br>  
+<br>    
+</div>
+<br>
+</div>
+</body>
+</html>
+
